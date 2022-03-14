@@ -1,116 +1,35 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.Buffer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Stack;
-import java.util.StringTokenizer;
-import java.util.function.DoubleBinaryOperator;
-
 
 public class Main {
+    public static int count = 0;
+    public static int[] arr = new int[1001];
+//    public static int recursive(int i){
+//        if(i <= 1){
+//            count++;
+//            return i;
+//        }else{
+//            if(arr[i] > 0) {
+//                return arr[i];
+//            }
+//            return arr[i] = recursive(i-1) + recursive(i-2);
+//        }
+//
+//
+//    }
+    public static void main(String args[]) throws IOException {
+        long[] dp = new long[1001];
 
-	public static void main(String[]args) throws IOException {
-		int n;
-		int r;
-		int nMinusR;
-
-		long twoCounter = 0;
-		long fiveCounter =0;
-			
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-		StringTokenizer st = new StringTokenizer(br.readLine());
-		n = Integer.parseInt(st.nextToken());
-		r = Integer.parseInt(st.nextToken());
-		nMinusR = n-r;
-
-
-		for(long i=2; i<=n; i*=2){
-			twoCounter += n/i;
-			twoCounter -= r/i;
-			twoCounter -= nMinusR/i;
-		}
-		for(long i=5; i<=n; i*=5){
-			fiveCounter += n/i;
-			fiveCounter -= r/i;
-			fiveCounter -= nMinusR/i;
-		}
-		if(twoCounter> fiveCounter){
-			System.out.println(fiveCounter);
-		}else{
-			System.out.println(twoCounter);
-		}
-		// int i = 2;
-
-		// while(i<=n){
-		// 	twoCounter += n/i;
-		// 	i*=i;
-		// }
-
-		// i=2;
-		// while(i<=r){
-		// 	twoCounter -= r/i;
-		// 	i*=i;
-		// }
-
-		// i=2;
-		// while(i<=nMinusR){
-		// 	twoCounter -= nMinusR/i;
-		// 	i*=i;
-		// }
-		
-
-		// //2^n이 N보다 작은동안
-		// i = 5;
-
-		// while(i<=n){
-		// 	fiveCounter += n/i;
-		// 	i*=i;
-		// }
-
-		// i=5;
-		// while(i<=r){
-		// 	fiveCounter -= r/i;
-		// 	i*=i;
-		// }
-
-		// i=5;
-		// while(i<=nMinusR){
-		// 	fiveCounter -= nMinusR/i;
-		// 	i*=i;
-		// }
-		// System.out.println(twoCounter);
-		// System.out.println(fiveCounter);
-
-
-		// int i =2;
-
-
-		// //2^n이 N보다 작을때
-		// while(i<=n){ 
-		// 	twoCounter += n/i;
-		// 	twoCounter -= r/i;
-		// 	twoCounter -= nMinusR/i;
-		// 	i = i*i;
-		// }
-
-		// i = 5;
-		// //5^n이 N보다 작을때
-		// while(i<=n){ 
-		// 	fiveCounter += n/i;
-		// 	fiveCounter -= r/i;
-		// 	fiveCounter -= nMinusR/i;
-		// 	i = i*i;
-		// }
-
-		// if(twoCounter < fiveCounter){
-		// 	System.out.println(twoCounter);
-		// }else{
-		// 	System.out.println(fiveCounter);
-		// }
-	}
+        dp[0] = 0;
+        dp[1] = 1;
+        dp[2] = 3;
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        for(int i=3; i<=N; i++){
+            dp[i]= (dp[i-1] + dp[i-2] + dp[i-2])%10007;
+        }
+        System.out.println(dp[N]);
+    }
 }
